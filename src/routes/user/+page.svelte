@@ -12,9 +12,9 @@
     const [loginForm, createForm] = [useForm(), useForm()];
 </script>
 
-<div class="main">
+<main>
     <form use:createForm>
-        <p class="subheading">create</p>
+        <p class="subheading">sign up</p>
 
         <input
             type="text"
@@ -39,7 +39,7 @@
     </form>
 
     <form use:loginForm>
-        <p class="subheading">login</p>
+        <p class="subheading">sign in</p>
 
         <input
             type="text"
@@ -54,12 +54,17 @@
             use:validators={[required]}
         />
 
+        <label class="container">
+            <input type="checkbox" name="remember" />
+            <span>remember?</span>
+        </label>
+
         <button disabled={!$loginForm.valid}>submit</button>
     </form>
-</div>
+</main>
 
 <style>
-    .main {
+    main {
         height: 100%;
         display: flex;
         justify-content: space-evenly;
@@ -75,9 +80,17 @@
     form > * {
         width: 100%;
         padding: 0.5rem;
+        margin: 0.1rem 0;
     }
 
     form > button {
         width: calc(100% + 1rem);
+        padding: 1.5rem;
+    }
+
+    input[type=checkbox] {
+        width: max-content;
+        padding: 0;
+        margin: 0;
     }
 </style>

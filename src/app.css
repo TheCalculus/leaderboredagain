@@ -13,7 +13,7 @@
     --colorful-error-extra-color: #84131f;
 }
 
-:root {
+/* :root {
     --bg-color: #ffffff;
     --main-color: #23a9d5;
     --caret-color: #4b5975;
@@ -24,8 +24,7 @@
     --error-extra-color: #84131f;
     --colorful-error-color: #b81b2c;
     --colorful-error-extra-color: #84131f;
-}
-
+} */
 
 body {
     background: var(--bg-color);
@@ -65,9 +64,45 @@ textarea {
     width: 17rem;
 }
 
+a {
+    color: var(--caret-color);
+    transition: 200ms;
+}
+
+a:hover {
+    color: var(--text-color);
+}
+
+a .active {
+    color: var(--text-color);
+    text-decoration: underline;
+}
+
 button {
-    padding: 0.5em;
     width: 17rem;
+    background: var(--sub-alt-color);
+    color: var(--text-color);
+    border: 0;
+    outline: 0;
+    transition: 200ms;
+}
+
+button:hover {
+    background: var(--sub-color);
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+button:disabled {
+    background: var(--sub-alt-color);
+    color: var(--sub-color);
+    border-bottom: 0.1rem solid var(--error-color);
+    cursor: not-allowed;
+}
+
+form > button {
+    width: calc(100% + 1rem);
+    padding: 1.5rem;
 }
 
 [data-lastpass-icon-root] {

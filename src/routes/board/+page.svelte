@@ -12,9 +12,9 @@
     const createBoard = useForm();
 </script>
 
-<div class="main">
+<main>
     <form use:createBoard>
-        <p class="subheading">create</p>
+        <p class="subheading">create board</p>
 
         <input
             type="text"
@@ -25,10 +25,10 @@
 
         <button disabled={!$createBoard.valid}>submit</button>
     </form>
-</div>
+</main>
 
 <style>
-    .main {
+    main {
         height: 100%;
         display: flex;
         justify-content: space-evenly;
@@ -49,5 +49,6 @@
 
     form > button {
         width: calc(100% + 1rem);
+        padding: 1.5rem;
     }
 </style>
