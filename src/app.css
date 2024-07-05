@@ -85,6 +85,7 @@ button {
     border: 0;
     outline: 0;
     transition: 200ms;
+    border-bottom: 0.1rem solid var(--caret-color);
 }
 
 button:hover {
@@ -100,7 +101,7 @@ button:disabled {
     cursor: not-allowed;
 }
 
-form > button {
+button {
     width: calc(100% + 1rem);
     padding: 1.5rem;
 }

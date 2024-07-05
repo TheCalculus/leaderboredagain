@@ -1,30 +1,14 @@
 <script>
-    import { user } from "$lib/stores/UserStore";
-    import {
-        useForm,
-        validators,
-        HintGroup,
-        Hint,
-        email,
-        required,
-    } from "svelte-use-form";
-
-    const createBoard = useForm();
 </script>
 
 <main>
-    <form use:createBoard>
+    <div>
         <p class="subheading">create board</p>
 
-        <input
-            type="text"
-            name="name"
-            placeholder="board name"
-            use:validators={[required]}
-        />
+        <input type="text" name="name" placeholder="board name" />
 
-        <button disabled={!$createBoard.valid}>submit</button>
-    </form>
+        <button disabled={false}>submit</button>
+    </div>
 </main>
 
 <style>
@@ -35,19 +19,19 @@
         align-items: center;
     }
 
-    form {
+    div {
         display: grid;
         gap: 0.5rem;
         justify-items: center;
         width: 300px;
     }
 
-    form > * {
+    div > * {
         width: 100%;
         padding: 0.5rem;
     }
 
-    form > button {
+    div > button {
         width: calc(100% + 1rem);
         padding: 1.5rem;
     }

@@ -1,9 +1,29 @@
+<script lang="ts">
+    import { board } from "$lib/board.store";
+
+    export let data;
+    // $board
+</script>
+
 <nav>
-    <a href="/">Home</a>
-    <a href="/board/">Board</a>
+    <a href="/">home</a>
+    <a href="/">cancac</a>
+
     <div class="empty"></div>
-    <a href="/user" class="right">username</a>
-    <a href="/board/null" class="right">opened board</a>
+
+    {#if data?.session.user}
+        <a href="/user/{data.session.user.id}" class="right"
+            >{data.session.user.email}</a
+        >
+    {:else}
+        <a href="/user" class="right">create user</a>
+    {/if}
+
+    {#if $board.id !== ""}
+        <a href="/board/{$board.id}" class="right">{$board.name}</a>
+    {:else}
+        <a href="/board" class="right">create board</a>
+    {/if}
 </nav>
 
 <style>

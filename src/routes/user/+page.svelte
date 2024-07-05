@@ -1,57 +1,60 @@
-<script>
-    import { user } from "$lib/stores/UserStore";
-    import {
-        useForm,
-        validators,
-        HintGroup,
-        Hint,
-        email,
-        required,
-    } from "svelte-use-form";
+<script lang="ts">
+    export let loading = false;
+    export let method = "";
 
-    const [loginForm, createForm] = [useForm(), useForm()];
+    export let username = "";
+    export let email = "";
+    export let password = "";
+
+    export let data;
+
+    let { supabase } = data;
+
+    async function handleSubmit() {
+        loading = true;
+        let response;
+
+        try {
+            switch (method) {
+                case "sign_up":
+                    response = await supabase.auth.signUp({ email, password });
+                    console.log(response);
+                    break;
+                case "sign_in":
+                    response = await supabase.auth.signInWithPassword({
+                        email,
+                        password,
+                    });
+                    console.log(response);
+                    break;
+                default:
+                    throw new Error("Invalid method");
+            }
+
+            if (response.error) console.error(response.error.message);
+            else console.log(response);
+        } catch (error) {
+        } finally {
+            loading = false;
+        }
+    }
 </script>
 
 <main>
-    <form use:createForm>
-        <p class="subheading">sign up</p>
-
-        <input
-            type="text"
-            name="username"
-            placeholder="username"
-            use:validators={[required]}
-        />
-        <input
-            type="email"
-            name="email"
-            placeholder="email"
-            use:validators={[required, email]}
-        />
-        <input
-            type="password"
-            name="password"
-            placeholder="password"
-            use:validators={[required]}
-        />
-
-        <button disabled={!$createForm.valid}>submit</button>
-    </form>
-
-    <form use:loginForm>
+    <form on:submit|preventDefault={handleSubmit}>
         <p class="subheading">sign in</p>
 
         <input
             type="text"
             name="username"
             placeholder="username"
-            use:validators={[required]}
+            bind:value={username}
         />
         <input
             type="password"
             name="password"
             placeholder="password"
-            use:validators={[required]}
+            bind:value={password}
         />
 
         <label class="container">
@@ -59,7 +62,40 @@
             <span>remember?</span>
         </label>
 
-        <button disabled={!$loginForm.valid}>submit</button>
+        <button
+            type="submit"
+            disabled={loading}
+            on:click={() => (method = "sign_in")}>submit</button
+        >
+    </form>
+
+    <form on:submit|preventDefault={handleSubmit}>
+        <p class="subheading">sign up</p>
+
+        <input
+            type="text"
+            name="username"
+            placeholder="username"
+            bind:value={username}
+        />
+        <input
+            type="email"
+            name="email"
+            placeholder="email"
+            bind:value={email}
+        />
+        <input
+            type="password"
+            name="password"
+            placeholder="password"
+            bind:value={password}
+        />
+
+        <button
+            type="submit"
+            disabled={loading}
+            on:click={() => (method = "sign_up")}>submit</button
+        >
     </form>
 </main>
 
@@ -88,7 +124,7 @@
         padding: 1.5rem;
     }
 
-    input[type=checkbox] {
+    input[type="checkbox"] {
         width: max-content;
         padding: 0;
         margin: 0;
