@@ -1,38 +1,48 @@
-<script>
+<script lang="ts">
+    export let loading = false;
+    export let boardName = "";
+
+    export let data;
+
+    const { session, supabase } = data;
+
+    async function handleSubmit() {
+        loading = true;
+       
+        supabase;
+
+        loading = false;
+    }
 </script>
 
 <main>
     <div>
-        <p class="subheading">create board</p>
+        {#if session?.user}
+            <form on:submit|preventDefault={handleSubmit}>
+                <p class="subheading">create board</p>
 
-        <input type="text" name="name" placeholder="board name" />
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="board name"
+                    bind:value={boardName}
+                />
 
-        <button disabled={false}>submit</button>
+                <button disabled={loading}>submit</button>
+            </form>
+        {:else}
+            <p class="heading">create an account first</p>
+            <p>
+                this is so that ur board doesn't get hacked. ur email wont be
+                used for anything except login
+            </p>
+        {/if}
     </div>
 </main>
 
 <style>
-    main {
-        height: 100%;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-    }
-
-    div {
-        display: grid;
-        gap: 0.5rem;
-        justify-items: center;
-        width: 300px;
-    }
-
     div > * {
         width: 100%;
         padding: 0.5rem;
-    }
-
-    div > button {
-        width: calc(100% + 1rem);
-        padding: 1.5rem;
     }
 </style>

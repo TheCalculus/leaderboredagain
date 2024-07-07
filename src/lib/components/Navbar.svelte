@@ -2,7 +2,8 @@
     import { board } from "$lib/board.store";
 
     export let data;
-    // $board
+
+    const { session } = data;
 </script>
 
 <nav>
@@ -11,10 +12,8 @@
 
     <div class="empty"></div>
 
-    {#if data?.session.user}
-        <a href="/user/{data.session.user.id}" class="right"
-            >{data.session.user.email}</a
-        >
+    {#if session}
+        <a href="/user/{session.user.id}" class="right">{session.user.email}</a>
     {:else}
         <a href="/user" class="right">create user</a>
     {/if}

@@ -106,27 +106,4 @@
         justify-content: space-evenly;
         align-items: center;
     }
-
-    form {
-        display: grid;
-        gap: 0.5rem;
-        justify-items: center;
-    }
-
-    form > * {
-        width: 100%;
-        padding: 0.5rem;
-        margin: 0.1rem 0;
-    }
-
-    form > button {
-        width: calc(100% + 1rem);
-        padding: 1.5rem;
-    }
-
-    input[type="checkbox"] {
-        width: max-content;
-        padding: 0;
-        margin: 0;
-    }
 </style>
