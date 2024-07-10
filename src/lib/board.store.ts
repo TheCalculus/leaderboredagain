@@ -1,6 +1,7 @@
-import { writable } from "svelte/store";
+import { persisted } from "svelte-persisted-store";
+// import { writable } from "svelte/store";
 
-export const board = writable({
+export const board = persisted("board", {
     id: "",
     name: "",
     owner: "",

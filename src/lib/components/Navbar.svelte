@@ -18,7 +18,7 @@
         <a href="/user" class="right">create user</a>
     {/if}
 
-    {#if $board.id !== ""}
+    {#if $board.id != ""}
         <a href="/board/{$board.id}" class="right">{$board.name}</a>
     {:else}
         <a href="/board" class="right">create board</a>

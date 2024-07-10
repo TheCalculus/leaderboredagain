@@ -1,8 +1,10 @@
-<script>
+<script lang="ts">
+    import type { PageData } from "./$types";
     import { page } from "$app/stores";
+
     const identifier = $page.params.identifier;
 
-    export let data;
+    export let data: PageData;
     const { supabase, session } = data;
 
     async function logout() {
