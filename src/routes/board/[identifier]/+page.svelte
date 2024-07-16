@@ -1,20 +1,34 @@
 <script lang="ts">
     import { page } from "$app/stores";
+    import { board as boardStore } from "$lib/board.store";
 
     const identifier = $page.params.identifier;
 
     export let data;
-    export let { session, board } = data;
+    $: ({ session, board, rankings } = data);
+
+    function setStarredBoard() {
+        $boardStore = board;
+    }
 </script>
 
 <main>
     <div>
-        <p class="heading">{board?.name}</p>
-        <p class="subheading">
-            board id {identifier}<br />
-            created {board?.created}<br />
-            owner id {board?.owner}<br />
-            are you the owner? {board?.owner == session?.user.id}
-        </p>
+        <p class="subheading">{board?.name}</p>
+        <p>by {board?.owner}</p>
+
+        <p class="subheading">rankings</p>
+        {#if rankings != undefined}
+            <ul class="rankings">
+                {#each rankings as ranking}
+                    <li>
+                        <a href="/user/{ranking.owner}">test</a>
+                        <span>{ranking.points}</span>
+                    </li>
+                {/each}
+            </ul>
+        {/if}
+
+        <button on:click={setStarredBoard}>star this board</button>
     </div>
 </main>

@@ -1,13 +1,11 @@
 <script lang="ts">
-    import type { PageData } from "./$types";
-
     import { board } from "$lib/board.store";
     import { goto } from "$app/navigation";
 
     let loading = false;
     let boardName = "";
 
-    export let data: PageData;
+    export let data;
     const { session, supabase } = data;
 
     async function handleSubmit() {

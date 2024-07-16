@@ -7,8 +7,6 @@
     import { onMount } from "svelte";
 
     export let data;
-
-    let { supabase, session } = data;
     $: ({ supabase, session } = data);
 
     onMount(() => {
@@ -47,7 +45,6 @@
 
     .content {
         grid-area: content;
-        width: 65%;
         margin: 0 auto;
         padding: 1rem 0;
     }

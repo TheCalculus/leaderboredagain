@@ -1,6 +1,4 @@
 <script lang="ts">
-    import type { PageData } from "./$types";
-
     export let loading = false;
     export let method = "";
 
@@ -8,8 +6,8 @@
     export let email = "";
     export let password = "";
 
-    export let data: PageData;
-    let { supabase } = data;
+    export let data;
+    $: ({ supabase } = data);
 
     async function handleSubmit() {
         loading = true;

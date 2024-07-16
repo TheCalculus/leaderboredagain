@@ -7,5 +7,10 @@ export async function load({ params }) {
         .eq("id", params?.identifier)
         .single()).data;
 
-    return { board };
+    const rankings = (await supabase
+        .from("rankings")
+        .select("*")
+        .eq("id", params?.identifier)).data;
+
+    return { board, rankings };
 }

@@ -2,13 +2,12 @@
     import { board } from "$lib/board.store";
 
     export let data;
-
-    const { session } = data;
+    $: ({ session } = data);
 </script>
 
 <nav>
     <a href="/">home</a>
-    <a href="/">cancac</a>
+    <a href="/board/cancac">cancac</a>
 
     <div class="empty"></div>
 
@@ -20,9 +19,9 @@
 
     {#if $board.id != ""}
         <a href="/board/{$board.id}" class="right">{$board.name}</a>
-    {:else}
-        <a href="/board" class="right">create board</a>
     {/if}
+
+    <a href="/board" class="right">create board</a>
 </nav>
 
 <style>
@@ -31,7 +30,7 @@
         background: var(--sub-alt-color);
         height: 100%;
         display: grid;
-        grid-template-columns: 0.3fr 0.3fr 3fr 0.3fr 0.3fr;
+        grid-template-columns: 0.3fr 0.3fr 3fr 0.3fr 0.3fr 0.3fr;
         gap: 2.5rem;
         align-items: center;
         padding: 0 10%;
