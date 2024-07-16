@@ -11,13 +11,28 @@
     }
 </script>
 
-<main>
-    <div>
-        <p class="subheading">{session?.user.email}</p>
-        <p>id {session?.user.id}</p>
+<div>
+    <p class="subheading">actions</p>
 
-        <p class="subheading">your boards</p>
+    <p>id {session?.user.id}</p>
+    <p>email {session?.user.email}</p>
+    <p>created {session?.user.created_at}</p>
 
+    <button on:click={logout} disabled={session?.user.id != identifier}>log out</button>
+</div>
+
+<div>
+    <p class="subheading">{session?.user.email}</p>
+    <p>display names</p>
+    <p>profile picture</p>
+    <p>status</p>
+    <p>boards</p>
+</div>
+
+<div>
+    <p class="subheading">your boards</p>
+
+    {#if boards != undefined && boards?.length > 0}
         <ul class="boards">
             {#each boards as board}
                 <li>
@@ -26,12 +41,11 @@
                 </li>
             {/each}
         </ul>
-
-        {#if session?.user.id == identifier}
-            <button on:click={logout}>log out</button>
-        {/if}
-    </div>
-</main>
+    {:else}
+        <p>its looking empty here... how about you <a href="/board">create board</a>?</p> 
+        <p>boards not loading? dm me on discord</p>
+    {/if}
+</div>
 
 <style>
     .boards {

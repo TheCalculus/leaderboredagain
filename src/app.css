@@ -79,7 +79,7 @@ a .active {
 }
 
 button {
-    width: calc(100% + 1rem) !important;
+    width: 100%;
     padding: 1.5rem !important;
     background: var(--sub-alt-color);
     color: var(--text-color);
@@ -122,10 +122,6 @@ input[type="checkbox"] {
 
 [data-lastpass-icon-root] {
     display: none !important;
-}
-
-main {
-    height: 100%;
 }
 
 main > div {

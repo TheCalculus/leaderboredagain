@@ -1,45 +1,47 @@
 <script lang="ts">
-    export let loading = false;
-    export let method = "";
+export let loading = false;
+export let method = "";
 
-    export let username = "";
-    export let email = "";
-    export let password = "";
+export let username = "";
+export let email = "";
+export let password = "";
 
-    export let data;
-    $: ({ supabase } = data);
+export let data;
+$: ({ supabase } = data);
 
-    async function handleSubmit() {
-        loading = true;
-        let response;
+async function handleSubmit() {
+    loading = true;
+    let response;
 
-        try {
-            switch (method) {
-                case "sign_up":
-                    response = await supabase.auth.signUp({ email, password });
-                    console.log(response);
-                    break;
-                case "sign_in":
-                    response = await supabase.auth.signInWithPassword({
-                        email,
-                        password,
-                    });
-                    console.log(response);
-                    break;
-                default:
-                    throw new Error("Invalid method");
-            }
-
-            if (response.error) console.error(response.error.message);
-            else console.log(response);
-        } catch (error) {
-        } finally {
-            loading = false;
+    try {
+        switch (method) {
+            case "sign_up":
+                response = await supabase.auth.signUp({ email, password });
+                console.log(response);
+                break;
+            case "sign_in":
+                response = await supabase.auth.signInWithPassword({
+                    email,
+                    password,
+                });
+                console.log(response);
+                break;
+            default:
+                throw new Error("Invalid method");
         }
+
+        if (response.error) console.error(response.error.message);
+            else console.log(response);
+    } catch (error) {
+    } finally {
+        loading = false;
     }
+}
 </script>
 
-<main>
+<div></div>
+
+<div class="main">
     <form on:submit|preventDefault={handleSubmit}>
         <p class="subheading">sign in</p>
 
@@ -96,13 +98,15 @@
             on:click={() => (method = "sign_up")}>submit</button
         >
     </form>
-</main>
+</div>
+
+<div></div>
 
 <style>
-    main {
-        height: 100%;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-    }
+.main {
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
 </style>
