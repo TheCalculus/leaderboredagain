@@ -1,10 +1,6 @@
-import supabase from "$lib/supabase";
+import { getBoardByOwner } from "$lib/database";
 
-export async function load({ params }) {
-    const boards = (await supabase
-        .from("boards")
-        .select("*")
-        .eq("owner", params?.identifier)).data;
-
+export async function load({ params }: any) {
+    const boards = await getBoardByOwner(params?.identifier);
     return { boards };
 }

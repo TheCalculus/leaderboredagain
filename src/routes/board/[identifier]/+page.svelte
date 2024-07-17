@@ -10,6 +10,9 @@ $: ({ session, board, rankings } = data);
 function setStarredBoard() {
     $boardStore = board;
 }
+
+function deleteBoard() {
+}
 </script>
 
 <div>
@@ -20,6 +23,7 @@ function setStarredBoard() {
     <p>created {board?.created}</p>
 
     <button on:click={setStarredBoard}>star this board</button>
+    <button on:click={deleteBoard} disabled={board?.owner != session?.user.id}>delete this board</button>
 </div>
 
 <div>
@@ -42,12 +46,21 @@ function setStarredBoard() {
 
 <div>
     <p class="subheading">log</p>
-    <p>logs will come here</p>
-    <p>[+] jbuster added 10 points to pengo wengo</p>
-    <p>[!] jbuster voted to *remove 10 points* from creamer</p>
-    <p>[!] pengo wengo voted to *remove 10 points* from creamer</p>
-    <p>[!] majority won: *remove 10 points* applied to creamer</p>
+    <ul>
+        <li>[+] jbuster added 10 points to pengo wengo</li>
+        <li>[!] jbuster voted to *remove 10 points* from creamer</li>
+        <li>[!] pengo wengo voted to *remove 10 points* from creamer</li>
+        <li>[!] majority won: *remove 10 points* applied to creamer</li>
+    </ul>
 </div>
 
 <style>
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul > li {
+    margin: 1rem 0;
+}
 </style>

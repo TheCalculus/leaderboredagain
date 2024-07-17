@@ -1,16 +1,9 @@
 import supabase from "$lib/supabase";
+import { getBoardById, getBoardRankings } from "$lib/database";
 
-export async function load({ params }) {
-    const board = (await supabase
-        .from("boards")
-        .select("*")
-        .eq("id", params?.identifier)
-        .single()).data;
-
-    const rankings = (await supabase
-        .from("rankings")
-        .select("*")
-        .eq("id", params?.identifier)).data;
+export async function load({ params }: any) {
+    const board    = await getBoardById(params?.identifier);
+    const rankings = await getBoardRankings(params?.identifier);
 
     return { board, rankings };
 }

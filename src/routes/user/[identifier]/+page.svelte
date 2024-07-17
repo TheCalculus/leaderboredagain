@@ -21,16 +21,8 @@
     <button on:click={logout} disabled={session?.user.id != identifier}>log out</button>
 </div>
 
-<div>
-    <p class="subheading">{session?.user.email}</p>
-    <p>display names</p>
-    <p>profile picture</p>
-    <p>status</p>
-    <p>boards</p>
-</div>
-
-<div>
-    <p class="subheading">your boards</p>
+<div class="two-span">
+    <p class="subheading">{session?.user.email}'s boards</p>
 
     {#if boards != undefined && boards?.length > 0}
         <ul class="boards">
@@ -50,5 +42,10 @@
 <style>
     .boards {
         list-style-type: none;
+        padding: 0;
+    }
+
+    .two-span {
+        grid-column: span 2;
     }
 </style>
