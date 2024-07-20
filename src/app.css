@@ -56,12 +56,12 @@ textarea {
     border-radius: var(--roundness);
     background: var(--sub-alt-color);
     color: var(--text-color);
-    padding: 0.5em;
+    padding: 0.5rem 0;
     font-size: 1em;
     font-family: var(--font);
     caret-color: var(--main-color);
-    line-height: 1.25em;
-    width: 17rem;
+    line-height: 1.25rem;
+    width: 100%;
 }
 
 a {

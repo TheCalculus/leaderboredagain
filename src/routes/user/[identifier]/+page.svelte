@@ -1,5 +1,6 @@
 <script lang="ts">
     import { page } from "$app/stores";
+    import { board } from "$lib/board.store.js";
 
     const identifier = $page.params.identifier;
 

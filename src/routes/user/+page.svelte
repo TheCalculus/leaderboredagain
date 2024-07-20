@@ -17,13 +17,20 @@ async function handleSubmit() {
         switch (method) {
             case "sign_up":
                 response = await supabase.auth.signUp({ email, password });
+                if (response.data.user != null) {
+                    const { data, error } = await supabase
+                        .from("users")
+                        .insert({ id: response.data.user.id, username: username, flair: "" });
+
+                    if (error)
+                        throw error;
+
+                    console.log(data);
+                }
                 console.log(response);
                 break;
             case "sign_in":
-                response = await supabase.auth.signInWithPassword({
-                    email,
-                    password,
-                });
+                response = await supabase.auth.signInWithPassword({ email, password });
                 console.log(response);
                 break;
             default:
@@ -45,11 +52,12 @@ async function handleSubmit() {
     <form on:submit|preventDefault={handleSubmit}>
         <p class="subheading">sign in</p>
 
+        <!-- usernames don't work yet -->
         <input
             type="text"
             name="username"
-            placeholder="username"
-            bind:value={username}
+            placeholder="email"
+            bind:value={email}
         />
         <input
             type="password"

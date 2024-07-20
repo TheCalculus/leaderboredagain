@@ -28,7 +28,7 @@ export async function getBoardByOwner(uuid: string) {
 export async function getBoardRankings(id: string) {
     const { data, error } = await supabase
         .from("rankings")
-        .select("*")
+        .select("owner, points")
         .eq("id", id);
 
     if (error)
