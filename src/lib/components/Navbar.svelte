@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { board } from "$lib/board.store";
+import { board } from "$lib/stores";
 
-    export let data;
-    $: ({ session } = data);
+export let data;
+$: ({ session } = data);
 </script>
 
 <nav>
@@ -25,25 +25,25 @@
 </nav>
 
 <style>
-    nav {
-        overflow: hidden;
-        background: var(--sub-alt-color);
-        height: 100%;
-        display: grid;
-        grid-template-columns: 0.3fr 0.3fr 3fr 0.3fr 0.3fr 0.3fr;
-        gap: 2.5rem;
-        align-items: center;
-        padding: 0 10%;
-    }
+nav {
+    overflow: hidden;
+    background: var(--sub-alt-color);
+    height: 100%;
+    display: grid;
+    grid-template-columns: 0.3fr 0.3fr 3fr 0.3fr 0.3fr 0.3fr;
+    gap: 2.5rem;
+    align-items: center;
+    padding: 0 10%;
+}
 
-    nav > * {
-        float: left;
-        display: block;
-        text-align: center;
-        text-decoration: none;
-    }
+nav > * {
+    float: left;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
 
-    nav > .right {
-        float: right;
-    }
+nav > .right {
+    float: right;
+}
 </style>

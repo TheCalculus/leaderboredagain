@@ -1,6 +1,7 @@
 <script lang="ts">
     import { page } from "$app/stores";
-    import { board as boardStore } from "$lib/board.store";
+    import { getUserByUsername } from "$lib/database";
+    import { board as boardStore } from "$lib/stores";
     import supabase from "$lib/supabase";
 
     const identifier = $page.params.identifier;
@@ -28,19 +29,30 @@
 
     let participantName = "";
     let participantPoints = 0;
-    let participantAccount = false;
+    let participantAccount = null ?? {};
   
     async function addParticipant() {
+        const hasAccount = participantName[0] == '@';
+
+        if (hasAccount) {
+            participantName = participantName.substring(1);
+            participantAccount = (await getUserByUsername(participantName)).id;
+        }
+
         const { data, error } = await supabase
             .from("rankings")
-            .insert(
+            .insert([
                 {
                     id: board?.id,
-                    owner: participantName,
+                    owner: participantAccount,
+                    owner_username: participantName,
                     points: participantPoints,
-                    anonymous: participantAccount
+                    anonymous: !hasAccount
                 }
-            )
+            ]);
+        
+        if (error)
+            console.log(error);
     }
 </script>
 
@@ -48,7 +60,7 @@
     <p class="subheading">actions</p>
 
     <p>id {board?.id}</p>
-    <p>owner {board?.owner}</p>
+    <p>owner <a href="/user/{board?.owner}">{board?.owner_username}</a></p>
     <p>created {board?.created}</p>
 
     <button
@@ -68,8 +80,8 @@
         <form on:submit|preventDefault={addParticipant}>
             <input
                 type="text"
-                name="email or anonymous"
-                placeholder="name"
+                name="name"
+                placeholder="@username or anonymous"
                 bind:value={participantName}
             />
             <input
@@ -78,16 +90,6 @@
                 placeholder="points"
                 bind:value={participantPoints}
             />
-
-            <label for="account">
-                <input
-                    type="checkbox"
-                    name="account"
-                    bind:value={participantAccount}
-                    checked
-                />
-                <span>is this an account?</span>
-            </label>
 
             <button type="submit">add participant to board</button>
         </form>
@@ -101,7 +103,7 @@
         <ul class="rankings">
             {#each rankings as ranking}
                 <li>
-                    <a href="/user/{ranking.owner}">test</a>
+                    <a href="/user/{ranking.owner}">{ranking.owner_username}</a>
                     <span>{ranking.points}</span>
                 </li>
             {/each}

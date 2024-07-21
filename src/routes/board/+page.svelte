@@ -1,5 +1,6 @@
 <script lang="ts">
-import { board } from "$lib/board.store";
+import { board } from "$lib/stores";
+import { user } from "$lib/stores";
 import { goto } from "$app/navigation";
 
 let loading = false;
@@ -13,7 +14,7 @@ async function handleSubmit() {
 
     const { data, error } = await supabase
         .from("boards")
-        .insert({ name: boardName, owner: session?.user.id })
+        .insert({ name: boardName, owner: session?.user.id, owner_username: $user.username })
         .select()
         .single();
 
