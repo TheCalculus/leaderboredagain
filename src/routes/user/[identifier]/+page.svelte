@@ -1,27 +1,20 @@
 <script lang="ts">
-    import { page } from "$app/stores";
-    import { board } from "$lib/stores";
+export let data;
 
-    const identifier = $page.params.identifier;
-
-    export let data;
-    $: ({ supabase, session, boards } = data);
-
-    async function logout() {
-        supabase.auth.signOut();
-    }
+const { user } = data;
 </script>
 
 <div>
     <p class="subheading">actions</p>
 
-    <p>id {session?.user.id}</p>
-    <p>email {session?.user.email}</p>
-    <p>created {session?.user.created_at}</p>
+    <p>id {user.id}</p>
+    <p>email {user.email}</p>
+    <p>created {user.created_at}</p>
 
-    <button on:click={logout} disabled={session?.user.id != identifier}>log out</button>
+    <button on:click={logout}>log out</button>
 </div>
 
+<!--
 <div class="two-span">
     <p class="subheading">{session?.user.email}'s boards</p>
 
@@ -39,6 +32,7 @@
         <p>boards not loading? dm me on discord</p>
     {/if}
 </div>
+-->
 
 <style>
     .boards {

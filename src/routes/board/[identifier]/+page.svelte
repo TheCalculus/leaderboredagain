@@ -1,59 +1,11 @@
 <script lang="ts">
-    import { page } from "$app/stores";
-    import { getUserByUsername } from "$lib/database";
-    import { board as boardStore } from "$lib/stores";
-    import supabase from "$lib/supabase";
-
-    const identifier = $page.params.identifier;
-
-    export let data;
-    $: ({ session, board, rankings } = data);
-
-    // used for ui only
-    let isOwner = false;
-    $: (isOwner = board?.owner == session?.user.id);
-
-    function setStarredBoard() {
-        $boardStore = board;
-    }
-
-    async function deleteBoard() {
-        const { error } = await supabase
-            .from("boards")
-            .delete()
-            .eq("id", board?.id);
-
-        if (error)
-            return null;
-    }
-
-    let participantName = "";
-    let participantPoints = 0;
-    let participantAccount = null ?? {};
-  
-    async function addParticipant() {
-        const hasAccount = participantName[0] == '@';
-
-        if (hasAccount) {
-            participantName = participantName.substring(1);
-            participantAccount = (await getUserByUsername(participantName)).id;
-        }
-
-        const { data, error } = await supabase
-            .from("rankings")
-            .insert([
-                {
-                    id: board?.id,
-                    owner: participantAccount,
-                    owner_username: participantName,
-                    points: participantPoints,
-                    anonymous: !hasAccount
-                }
-            ]);
-        
-        if (error)
-            console.log(error);
-    }
+let board;
+let deleteBoard;
+let setStarredBoard;
+let isOwner;
+let addParticipant;
+let participantName;
+let participantPoints;
 </script>
 
 <div>

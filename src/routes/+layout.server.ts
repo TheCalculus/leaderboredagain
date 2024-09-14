@@ -1,11 +1,5 @@
-import type { LayoutServerLoad } from "./$types"
+import { client, account } from '$lib/appwrite';
+import type { PageServerLoad } from './$types';
 
-export const load: LayoutServerLoad = async ({ locals: { safeGetSession }, cookies }) => {
-    const { session, user } = await safeGetSession();
-
-    return {
-        session,
-        user,
-        cookies: cookies.getAll(),
-    };
+export async function load({ params }) {
 }

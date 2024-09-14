@@ -2,7 +2,8 @@
 import { board } from "$lib/stores";
 
 export let data;
-$: ({ session } = data);
+
+let session = null;
 </script>
 
 <nav>
@@ -19,6 +20,8 @@ $: ({ session } = data);
 
     {#if $board.id != ""}
         <a href="/board/{$board.id}" class="right">{$board.name}</a>
+    {:else}
+        <a href="/user" class="right">none starred</a>
     {/if}
 
     <a href="/board" class="right">create board</a>

@@ -1,33 +1,4 @@
 <script lang="ts">
-import { board } from "$lib/stores";
-import { user } from "$lib/stores";
-import { goto } from "$app/navigation";
-
-let loading = false;
-let boardName = "";
-
-export let data;
-const { session, supabase } = data;
-
-async function handleSubmit() {
-    loading = true;
-
-    const { data, error } = await supabase
-        .from("boards")
-        .insert({ name: boardName, owner: session?.user.id, owner_username: $user.username })
-        .select()
-        .single();
-
-    if (error) {
-        console.error(error);
-        return;
-    }
-
-    goto(`/board/${data.id}`);
-    board.set(data);
-
-    loading = false;
-}
 </script>
 
 <div></div>

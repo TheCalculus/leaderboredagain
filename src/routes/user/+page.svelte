@@ -1,58 +1,10 @@
 <script lang="ts">
-import { user } from "$lib/stores";
-
-export let loading = false;
-export let method = "";
-
-export let username = "";
-export let email = "";
-export let password = "";
-
-export let data;
-$: ({ supabase } = data);
-
-async function handleSubmit() {
-    loading = true;
-    let response;
-
-    try {
-        switch (method) {
-            case "sign_up":
-                response = await supabase.auth.signUp({ email, password });
-    
-                if (response.data.user != undefined) {
-                    const { error } = await supabase
-                        .from("users")
-                        .insert({ id: response.data.user.id, username: username, flair: "" });
-
-                    if (error)
-                        throw error;
-                }
-
-                break;
-            case "sign_in":
-                response = await supabase.auth.signInWithPassword({ email, password });
-                break;
-            default:
-                throw new Error("Invalid method");
-        }
-
-        if (response.error) console.error(response.error.message);
-            else console.log(response);
-    } catch (error) {
-    } finally {
-        loading = false;
-        
-        if (response?.data.user != undefined)
-            $user = { id: response?.data.user.id, username: username, flair: "" };
-    }
-}
 </script>
 
 <div></div>
 
 <div class="main">
-    <form on:submit|preventDefault={handleSubmit}>
+    <form action="" method="post">
         <p class="subheading">sign in</p>
 
         <!-- usernames don't work yet -->
@@ -60,13 +12,11 @@ async function handleSubmit() {
             type="text"
             name="username"
             placeholder="email"
-            bind:value={email}
         />
         <input
             type="password"
             name="password"
             placeholder="password"
-            bind:value={password}
         />
 
         <label class="container">
@@ -74,40 +24,29 @@ async function handleSubmit() {
             <span>remember?</span>
         </label>
 
-        <button
-            type="submit"
-            disabled={loading}
-            on:click={() => (method = "sign_in")}>submit</button
-        >
+        <button type="submit">submit</button>
     </form>
 
-    <form on:submit|preventDefault={handleSubmit}>
+    <form action="?/signup" method="post">
         <p class="subheading">sign up</p>
 
         <input
             type="text"
             name="username"
             placeholder="username"
-            bind:value={username}
         />
         <input
             type="email"
             name="email"
             placeholder="email"
-            bind:value={email}
         />
         <input
             type="password"
             name="password"
             placeholder="password"
-            bind:value={password}
         />
 
-        <button
-            type="submit"
-            disabled={loading}
-            on:click={() => (method = "sign_up")}>submit</button
-        >
+        <button type="submit">submit</button>
     </form>
 </div>
 
