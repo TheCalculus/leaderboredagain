@@ -1,17 +1,8 @@
 import { persisted } from "svelte-persisted-store";
 
-export const board = persisted("board", {
-    id: "",
-    name: "",
-    owner: "",
-    rankings: "",
-    participants: 0,
-});
+export const boardStore = persisted("board", null);
 
-export const user = persisted("user", {
-    id: "",
-    username: "",
-    flair: "",
-});
+// this doesnt do auth
+export const userStore = persisted("user", null);
  
-export default { board, user };
+export default { boardStore, userStore };

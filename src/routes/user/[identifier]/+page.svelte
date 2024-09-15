@@ -1,15 +1,14 @@
 <script lang="ts">
 export let data;
-
 const { user } = data;
 </script>
 
 <div>
     <p class="subheading">actions</p>
 
-    <p>id {user.id}</p>
+    <p>id {user.$id}</p>
     <p>email {user.email}</p>
-    <p>created {user.created_at}</p>
+    <p>created {user.$createdAt}</p>
 
     <button on:click={logout}>log out</button>
 </div>

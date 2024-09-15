@@ -1,10 +1,14 @@
 <script lang="ts">
+import { boardStore, userStore } from "$lib/stores";
+
+export let data;
+const { user } = data;
 </script>
 
 <div></div>
 
 <div>
-    {#if session?.user}
+    {#if user}
         <form on:submit|preventDefault={handleSubmit}>
             <p class="subheading">create board</p>
 
@@ -12,10 +16,9 @@
                 type="text"
                 name="name"
                 placeholder="board name"
-                bind:value={boardName}
             />
 
-            <button disabled={loading}>submit</button>
+            <button type="submit">create</button>
         </form>
     {:else}
         <p class="heading">create an account first</p>

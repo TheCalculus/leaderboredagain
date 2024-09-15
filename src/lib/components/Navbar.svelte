@@ -1,9 +1,8 @@
 <script lang="ts">
-import { board } from "$lib/stores";
+import { boardStore, userStore } from "$lib/stores";
 
-export let data;
-
-let session = null;
+const user = $userStore;
+const board = $boardStore;
 </script>
 
 <nav>
@@ -12,14 +11,14 @@ let session = null;
 
     <div class="empty"></div>
 
-    {#if session}
-        <a href="/user/{session.user.id}" class="right">{session.user.email}</a>
+    {#if user}
+        <a href="/user/{user.$id}" class="right">{user.name}</a>
     {:else}
         <a href="/user" class="right">create user</a>
     {/if}
 
-    {#if $board.id != ""}
-        <a href="/board/{$board.id}" class="right">{$board.name}</a>
+    {#if board}
+        <a href="/board/{board.id}" class="right">{board.name}</a>
     {:else}
         <a href="/user" class="right">none starred</a>
     {/if}

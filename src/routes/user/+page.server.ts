@@ -1,5 +1,4 @@
 import { SESSION_COOKIE, createAdminClient } from "$lib/server/appwrite";
-import { redirect } from "@sveltejs/kit";
 import { ID, OAuthProvider } from "node-appwrite";
 
 export const actions = {

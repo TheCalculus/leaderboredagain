@@ -1,5 +1,7 @@
-import { client, account } from '$lib/appwrite';
-import type { PageServerLoad } from './$types';
+export async function load({ locals }) {
+    if (!locals.user) return;
 
-export async function load({ params }) {
+    return {
+        user: locals.user
+    };
 }

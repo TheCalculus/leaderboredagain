@@ -1,13 +1,18 @@
 <script lang="ts">
+import { boardStore, userStore } from "$lib/stores";
 import Navbar from "$lib/components/Navbar.svelte"
+
 import "../app.css";
 
 export let data;
+const { user } = data;
+
+$userStore = user;
 </script>
 
 <div class="wrapper">
     <div class="navbar">
-        <Navbar {data} />
+        <Navbar />
     </div>
     <div class="content"> <slot /> </div>
 </div>
